@@ -1,4 +1,6 @@
 import os
+# 시스템 에러 메시지를 영어로 고정하여 인코딩 오류를 방지합니다.
+os.environ["LANG"] = "en_US.UTF-8"
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
