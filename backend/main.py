@@ -1,5 +1,6 @@
 # main.py
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List
@@ -11,6 +12,14 @@ import models  # 중요: 테이블 인식을 위해 models를 반드시 임포�
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Eco-Price AI Service")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # ===== Pydantic 스키마 =====
