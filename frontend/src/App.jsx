@@ -1,57 +1,121 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
 
 function App() {
-  const [status, setStatus] = useState('서버 상태를 불러오는 중입니다...')
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000')
-      .then((response) => {
-        setStatus(response.data?.message ?? '백엔드에 연결되었습니다.')
-      })
-      .catch((err) => {
-        setError(err.message)
-        setStatus('백엔드 연결에 실패했습니다.')
-      })
-  }, [])
+  const [count, setCount] = useState(0)
 
   return (
-    <div className="app-shell">
-      <div className="card">
-        <header className="hero">
-          <p className="eyebrow">Eco-Price AI</p>
-          <h1>React 프론트엔드 + Vite</h1>
-          <p className="lead">
-            Tailwind 스타일 감성으로 구성된 깔끔한 UI에서 백엔드 API를 호출합니다.
+    <>
+      <section id="center">
+        <div className="hero">
+          <img src={heroImg} className="base" width="170" height="179" alt="" />
+          <img src={reactLogo} className="framework" alt="React logo" />
+          <img src={viteLogo} className="vite" alt="Vite logo" />
+        </div>
+        <div>
+          <h1>Get started</h1>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
-        </header>
+        </div>
+        <button
+          type="button"
+          className="counter"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </button>
+      </section>
 
-        <section className="status-card">
-          <div className="status-header">
-            <h2>백엔드 상태</h2>
-            <span className="badge">API</span>
-          </div>
-          <p className="status-text">{status}</p>
-          {error && <p className="error-text">오류: {error}</p>}
-          <p className="hint">
-            요청 URL: <code>http://localhost:8000</code>
-          </p>
-        </section>
+      <div className="ticks"></div>
 
-        <section className="grid-panel">
-          <article>
-            <h3>사용 기술</h3>
-            <p>Vite, React, Axios 기반의 프론트엔드 구조입니다.</p>
-          </article>
-          <article>
-            <h3>다음 단계</h3>
-            <p>추가 컴포넌트를 만들어 `/items` 또는 AI 레시피 엔드포인트 호출을 확장하세요.</p>
-          </article>
-        </section>
-      </div>
-    </div>
+      <section id="next-steps">
+        <div id="docs">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#documentation-icon"></use>
+          </svg>
+          <h2>Documentation</h2>
+          <p>Your questions, answered</p>
+          <ul>
+            <li>
+              <a href="https://vite.dev/" target="_blank">
+                <img className="logo" src={viteLogo} alt="" />
+                Explore Vite
+              </a>
+            </li>
+            <li>
+              <a href="https://react.dev/" target="_blank">
+                <img className="button-icon" src={reactLogo} alt="" />
+                Learn more
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="social">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#social-icon"></use>
+          </svg>
+          <h2>Connect with us</h2>
+          <p>Join the Vite community</p>
+          <ul>
+            <li>
+              <a href="https://github.com/vitejs/vite" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#github-icon"></use>
+                </svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://chat.vite.dev/" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#discord-icon"></use>
+                </svg>
+                Discord
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/vite_js" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#x-icon"></use>
+                </svg>
+                X.com
+              </a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/vite.dev" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#bluesky-icon"></use>
+                </svg>
+                Bluesky
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div className="ticks"></div>
+      <section id="spacer"></section>
+    </>
   )
 }
 

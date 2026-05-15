@@ -5,3 +5,32 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+
+# Frontend (Node.js & Vite)
+# npm install 시 생성되는 라이브러리 폴더 (용량이 매우 크므로 반드시 제외)
+frontend/node_modules/
+node_modules/
+
+# 빌드 결과물 (npm run build 시 생성되는 배포용 파일)
+frontend/dist/
+dist/
+
+# 로컬 환경 변수 파일
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 에디터 관련 (선택 사항)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

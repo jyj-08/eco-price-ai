@@ -1,26 +1,18 @@
-# Eco-Price AI Frontend
+# React + Vite
 
-이 디렉토리는 Vite와 React를 사용한 프론트엔드 앱입니다.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 시작하기
+Currently, two official plugins are available:
 
-1. `frontend` 디렉토리로 이동합니다.
-2. `npm install`을 실행합니다.
-3. `npm run dev`로 개발 서버를 시작합니다.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Axios 설치
+## React Compiler
 
-이 프로젝트는 `axios`를 이미 `package.json`에 포함하고 있습니다.
-따라서 `frontend`에서 `npm install`을 실행하면 `axios`도 함께 설치됩니다.
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-추가로 `axios`만 별도 설치하려면:
+Note: This will impact Vite dev & build performances.
 
-```bash
-npm install axios
-```
+## Expanding the ESLint configuration
 
-## API 엔드포인트
-
-- 백엔드: `http://localhost:8000`
-
-현재 `src/App.jsx`는 루트 경로를 호출하여 백엔드 연결 상태를 확인합니다.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
