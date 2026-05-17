@@ -2,3 +2,11 @@
 
 
 http://openapi.price.go.kr/openApiImpl/ProductPriceInfoService/getProductInfoSvc.do?ServiceKey=6ada97b6cda6d1c57b3cc670536fda56a39952a3cf6df77e3986d0483b0b3f1f
+
+```python
+cd backend
+uvicorn main:app --reload
+
+cd frontend
+npm run dev
+```
