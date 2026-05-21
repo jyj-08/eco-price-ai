@@ -14,8 +14,8 @@ load_dotenv()
 
 API_KEY_ENV = "PUBLIC_DATA_API_KEY"
 API_URL_ENV = "PUBLIC_DATA_API_URL"
-DEFAULT_API_URL = "https://api.odcloud.kr/api/15063980/v1/uddi:bcd05d59-17ae-4d06-9a43-931d896950a2"
-BATCH_SIZE = 300
+DEFAULT_API_URL = "http://openapi.price.go.kr/openApiImpl/ProductPriceInfoService/getProductInfoSvc.do"
+BATCH_SIZE = 100
 
 logger = logging.getLogger(__name__)
 
@@ -39,26 +39,33 @@ def get_db_session() -> Tuple[Generator[Session, None, None], Session]:
     return db_generator, db_session
 
 
-def fetch_public_data_page(api_key: str, api_url: str, page_no: int = 1, num_of_rows: int = 500) -> Dict[str, Any]:
+def fetch_public_data_page(api_key: str, api_url: str, page_no: int = 1, num_of_rows: int = 100) -> str:
     """공공 데이터 API에서 한 페이지의 데이터를 가져옵니다."""
+    # 1. API 키에서 공백 및 따옴표 제거
+    clean_key = api_key.strip().strip('\"\'')
+    
     params = {
-        "serviceKey": api_key,
-        "pageNo": page_no,
-        "numOfRows": num_of_rows,
-        "_type": "json",
+        "serviceKey": clean_key,
+        "page": page_no,
+        "perPage": num_of_rows
+    }
+    
+    # 2. 브라우저 위장 헤더 추가
+    headers = {
+        'User-Agent': 'Mozilla/5.0'
     }
     
     try:
         logger.debug(f"API 호출: page={page_no}, rows={num_of_rows}")
-        response = requests.get(api_url, params=params, timeout=30)
+        response = requests.get(api_url, params=params, headers=headers, timeout=30)
         response.raise_for_status()
         logger.debug(f"API 응답 수신: status_code={response.status_code}, size={len(response.text)}자")
-        return response.json()
+        return response.text
     except requests.exceptions.Timeout as e:
         logger.error(f"API 호출 타임아웃 (page={page_no}): {str(e)}", exc_info=True)
         raise
     except requests.exceptions.HTTPError as e:
-        logger.error(f"API HTTP 에러 (page={page_no}, status_code={response.status_code}): {str(e)}", exc_info=True)
+        logger.error(f"API HTTP 에러 (page={page_no}, status_code={response.status_code}, text={response.text}): {str(e)}", exc_info=True)
         raise
     except requests.exceptions.RequestException as e:
         logger.error(f"API 요청 실패 (page={page_no}): {str(e)}", exc_info=True)
@@ -68,25 +75,28 @@ def fetch_public_data_page(api_key: str, api_url: str, page_no: int = 1, num_of_
         raise
 
 
-def extract_items_from_response(response_json: Dict[str, Any]) -> List[Dict[str, Any]]:
-    if not isinstance(response_json, dict):
+import xml.etree.ElementTree as ET
+
+def extract_items_from_response(response_text: str) -> List[Dict[str, Any]]:
+    if not response_text:
         return []
-
-    if "items" in response_json and isinstance(response_json["items"], list):
-        return response_json["items"]
-
-    if "data" in response_json and isinstance(response_json["data"], list):
-        return response_json["data"]
-
-    if "response" in response_json:
-        response_block = response_json["response"]
-        if isinstance(response_block, dict):
-            body = response_block.get("body")
-            if isinstance(body, dict):
-                items = body.get("items")
-                if isinstance(items, list):
-                    return items
-    return []
+        
+    try:
+        root = ET.fromstring(response_text)
+        items = []
+        # 한국소비자원 참가격 API 응답 태그 탐색
+        nodes = root.findall('.//item') or root.findall('.//iros.openapi.service.vo.goodPriceVO') or root.findall('.//iros.openapi.service.vo.entpInfoVO')
+        
+        for item_node in nodes:
+            item_data = {}
+            for child in item_node:
+                item_data[child.tag] = child.text
+            items.append(item_data)
+            
+        return items
+    except ET.ParseError as e:
+        logger.error(f"XML 파싱 실패: {str(e)}", exc_info=True)
+        return []
 
 
 def normalize_price(value: Any) -> Optional[int]:
@@ -129,21 +139,38 @@ def get_value(record: Dict[str, Any], keys: Iterable[str]) -> Optional[str]:
     return None
 
 
-def parse_market_price_records(raw_items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    parsed_records: List[Dict[str, Any]] = []
+def parse_market_price_records(raw_items):
+    parsed_records = []
+
+    # 비식품(공산품) 키워드 블랙리스트
+    blacklist = [
+        '세제', '샴푸', '린스', '치약', '칫솔',
+        '면도기', '건전지', '고무장갑', '화장지', '물티슈',
+        '부탄가스', '습기제거제', '살충제', '락스', '비누',
+        '스타킹', '기저귀'
+    ]
 
     for raw in raw_items:
-        item_name = get_value(raw, ["item_name", "itemNm", "prdtNm", "품목명", "PRDT_NM"])
-        price_value = get_value(raw, ["price", "prc", "dprc", "offerPrc", "가격"])
-        unit = get_value(raw, ["unit", "prdtUnit", "단위"])
-        market_name = get_value(raw, ["market_name", "marketNm", "market", "시장명"])
+        # DB 모델에 들어갈 item_name, price, market_name 등을 올바른 필드에서 추출할 것
+        item_name = get_value(raw, ["goodName", "item_name", "itemNm", "prdtNm", "품목명", "PRDT_NM"])
+        
+        # 이름이 없거나 블랙리스트 키워드가 포함된 경우 제외
+        if not item_name or any(keyword in item_name for keyword in blacklist):
+            continue
+            
+        price_value = get_value(raw, ["goodPrice", "goodBaseCnt", "price", "prc", "dprc", "offerPrc", "가격"])
+        unit = get_value(raw, ["goodUnitDivCode", "unit", "prdtUnit", "단위"])
+        market_name = get_value(raw, ["entpName", "productEntpCode", "entpId", "market_name", "marketNm", "market", "시장명"])
         region = get_value(raw, ["region", "area", "ctyNm", "지역"])
-        update_date_value = get_value(raw, ["update_date", "trdDd", "stdt", "date", "pblntfPcldt"])
+        update_date_value = get_value(raw, ["goodInspectDay", "inputDttm", "update_date", "trdDd", "stdt", "date", "pblntfPcldt"])
+
+        if not update_date_value:
+            update_date_value = datetime.now().strftime("%Y-%m-%d")
 
         price = normalize_price(price_value)
         update_date = normalize_date(update_date_value)
 
-        if not item_name or price is None or update_date is None:
+        if price is None or update_date is None:
             continue
 
         parsed_records.append(
@@ -151,7 +178,7 @@ def parse_market_price_records(raw_items: List[Dict[str, Any]]) -> List[Dict[str
                 "item_name": item_name,
                 "price": price,
                 "unit": unit or "",
-                "market_name": market_name or "",
+                "market_name": market_name or "Unknown Store",
                 "region": region or "",
                 "update_date": update_date,
             }
@@ -270,20 +297,20 @@ def fetch_all_public_data(api_key: str, api_url: str) -> List[Dict[str, Any]]:
         logger.info("공공 데이터 전체 조회 시작")
         
         while True:
-            logger.debug(f"페이지 {page} 조회 중...")
-            response_json = fetch_public_data_page(api_key, api_url, page_no=page, num_of_rows=BATCH_SIZE)
-            raw_items = extract_items_from_response(response_json)
+            logger.info(f"페이지 {page} 조회 중...")
+            response_text = fetch_public_data_page(api_key, api_url, page_no=page, num_of_rows=BATCH_SIZE)
+            raw_items = extract_items_from_response(response_text)
             
             if not raw_items:
                 logger.info(f"마지막 페이지 도달 (page={page})")
                 break
 
-            logger.debug(f"페이지 {page}: {len(raw_items)}개 항목 추출")
+            logger.info(f"페이지 {page}: {len(raw_items)}개 항목 추출")
             parsed = parse_market_price_records(raw_items)
-            logger.debug(f"페이지 {page}: {len(parsed)}개 항목 파싱 완료")
+            logger.info(f"페이지 {page}: {len(parsed)}개 항목 파싱 완료")
             all_records.extend(parsed)
 
-            if len(raw_items) < BATCH_SIZE:
+            if len(raw_items) < BATCH_SIZE or page >= 1:
                 logger.info(f"마지막 페이지 도달 (page={page}, items={len(raw_items)})")
                 break
 

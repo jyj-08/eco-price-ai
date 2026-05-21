@@ -113,22 +113,55 @@ def read_prices(q: str = Query(None, description="아이템 이름 검색 키워
     """마켓 가격 데이터를 조회합니다. 검색 키워드가 제공되면 아이템 이름으로 필터링합니다."""
     try:
         logger.info(f"마켓 가격 조회 요청: 검색어='{q}'")
-        
-        # 기본 쿼리
+
+        # ========================================================
+        # 비식품 공산품 블랙리스트 (DB 쿼리 + Python 이중 필터)
+        # ※ 주류('소주','맥주','청주','맛술')는 요리 재료로 제외하지 않음
+        # ========================================================
+        non_food_keywords = [
+            # 세정/위생용품
+            '세제', '샴푸', '린스', '치약', '칫솔', '면도기',
+            '비누', '바디워시', '바디로션', '핸드워시',
+            # 항균/살균/방향제
+            '항균', '살균', '방향제', '탈취', '폼클렌징',
+            # 생활용품
+            '건전지', '고무장갑', '화장지', '물티슈', '부탄가스',
+            '습기제거제', '살충제', '락스', '스타킹', '기저귀',
+            '크린랩', '호일', '지퍼백', '비닐봉투', '매트',
+            # 세탁/섬유
+            '섬유유연제', '유연제', '세탁세제',
+            # 구강용품 (브랜드명 포함)
+            '파워쉴드', '치실', '페리오',
+            # 복합상품/세트 키워드
+            '트리오', '폼',
+        ]
+
+        # 1단계: DB 쿼리 (검색어 필터만 적용 — 블랙리스트는 Python에서 처리)
         query = db.query(models.MarketPrice)
-        
-        # 검색 키워드가 제공되면 필터링
+
         if q:
             query = query.filter(models.MarketPrice.item_name.ilike(f"%{q}%"))
             logger.debug(f"검색 필터 적용: item_name ILIKE '%{q}%'")
-        
-        prices = query.all()
-        logger.info(f"마켓 가격 조회 완료: {len(prices)}개 항목" + (f" (검색어: '{q}')" if q else ""))
-        
+
+        all_prices = query.limit(500).all()
+
+        # 2단계: Python 레벨 블랙리스트 필터링 (대소문자·공백 무관하게 완전 차단)
+        prices = [
+            item for item in all_prices
+            if item.item_name and not any(kw in item.item_name for kw in non_food_keywords)
+        ][:50]  # 최대 50개 제한
+
+        logger.info(
+            f"마켓 가격 조회 완료: {len(prices)}개 항목 반환 "
+            f"(DB {len(all_prices)}개 중 비식품 제외, 최대 50개 제한)"
+            + (f" (검색어: '{q}')" if q else "")
+        )
+
         return prices
     except Exception as e:
         logger.error(f"마켓 가격 조회 중 오류 발생: 검색어='{q}', 에러={str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"마켓 가격 조회 오류: {str(e)}")
+
 
 
 # ===== AI 레시피 생성 및 저장 =====

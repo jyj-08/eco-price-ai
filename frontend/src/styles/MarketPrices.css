@@ -1,206 +1,459 @@
+/* ============================
+   🛒 MarketPrices & PriceCard
+   ============================ */
+
+/* === Market Container === */
 .market-container {
-  padding: 40px 20px;
+  padding: var(--space-6) var(--space-6) var(--space-16);
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.market-container h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
+/* === Section Header === */
+.market-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
 }
 
-.market-container.error {
-  color: #d32f2f;
-  text-align: center;
-  padding: 60px 20px;
-  font-size: 1.1rem;
+.market-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
+.market-section-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--eco-600), var(--mint-500));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-eco);
+}
+
+.market-section-title h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.market-count-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--eco-100);
+  color: var(--eco-700);
+  border: 1px solid var(--eco-200);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-left: var(--space-2);
+}
+
+/* === Refresh Button === */
 .btn-refresh {
-  display: block;
-  margin: 0 auto 30px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  background: var(--white);
+  color: var(--eco-700);
+  border: 2px solid var(--eco-200);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-refresh:hover {
-  background-color: #45a049;
+  background: var(--eco-50);
+  border-color: var(--eco-400);
+  color: var(--eco-800);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-eco);
 }
 
-.price-card.lowest-price {
-  border-color: #FFD700;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-  position: relative;
+.btn-refresh:active {
+  transform: translateY(0);
 }
 
-.lowest-price-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #333;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.price-card.lowest-price .item-price {
-  color: #FF6B35;
-  font-weight: bold;
-}
-
+/* === Price Grid === */
 .price-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+  animation: fadeIn 0.5s ease;
 }
 
+/* ============================
+   🃏 Price Card
+   ============================ */
+
 .price-card {
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease;
+}
+
+.price-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--eco-400), var(--mint-400));
+  opacity: 0;
+  transition: var(--transition-normal);
 }
 
 .price-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-color: #4CAF50;
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--eco-300);
+}
+
+.price-card:hover::before {
+  opacity: 1;
 }
 
 .price-card:active {
   transform: translateY(-2px);
 }
 
+/* === Lowest Price Card === */
+.price-card.lowest-price {
+  border-color: var(--gold-400);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2), var(--shadow-sm);
+}
+
+.price-card.lowest-price::before {
+  background: linear-gradient(90deg, var(--gold-400), var(--gold-300));
+  opacity: 1;
+}
+
+.price-card.lowest-price:hover {
+  box-shadow: 0 12px 36px rgba(245, 158, 11, 0.28), var(--shadow-md);
+  border-color: var(--gold-400);
+}
+
+/* === Selected Card === */
+.price-card.selected {
+  border-color: var(--eco-400);
+  background: linear-gradient(145deg, var(--eco-50), var(--white));
+  box-shadow: var(--shadow-eco);
+}
+
+/* === Lowest Price Badge === */
+.lowest-price-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+  color: #7c2d12;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* === Card Checkbox Row === */
+.ingredient-select {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.ingredient-select input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--eco-600);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ingredient-select label {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.3px;
+}
+
+/* === Card Item Name === */
 .item-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-2);
+  line-height: 1.3;
 }
 
+/* === Card Price === */
 .item-price {
-  font-size: 1.5rem;
-  color: #4CAF50;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: var(--font-size-3xl);
+  color: var(--eco-600);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
-.item-unit {
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 8px;
+.price-card.lowest-price .item-price {
+  color: var(--gold-500);
 }
 
-.item-market {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 5px;
+/* === Meta Badges Row === */
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  flex: 1;
 }
 
-.item-region {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 15px;
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.click-hint {
-  font-size: 0.8rem;
-  color: #999;
+.meta-badge-unit {
+  background: var(--eco-100);
+  color: var(--eco-700);
+  border: 1px solid var(--eco-200);
+}
+
+.meta-badge-market {
+  background: var(--gray-100);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
+}
+
+.meta-badge-region {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+/* === Storage Guide Button === */
+.btn-storage-guide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(135deg, var(--eco-50), var(--white));
+  color: var(--eco-700);
+  border: 1.5px solid var(--eco-200);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  margin-top: auto;
+}
+
+.btn-storage-guide:hover {
+  background: linear-gradient(135deg, var(--eco-100), var(--eco-50));
+  border-color: var(--eco-400);
+  color: var(--eco-800);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-eco);
+}
+
+.btn-storage-guide:active {
+  transform: translateY(0);
+}
+
+/* ============================
+   📭 Empty State
+   ============================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-6);
   text-align: center;
-  padding-top: 15px;
-  border-top: 1px solid #f0f0f0;
-  margin-top: 10px;
+  animation: fadeIn 0.4s ease;
 }
 
-.no-data {
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-5);
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state h3 {
+  font-size: var(--font-size-xl);
+  color: var(--gray-700);
+  margin-bottom: var(--space-3);
+}
+
+.empty-state p {
+  font-size: var(--font-size-base);
+  color: var(--gray-400);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+/* ============================
+   ⏳ Skeleton Loading UI
+   ============================ */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.skeleton-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.skeleton-line {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--gray-100) 25%,
+    var(--gray-200) 50%,
+    var(--gray-100) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-checkbox {
+  width: 80px;
+  height: 16px;
+  margin-bottom: var(--space-4);
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 22px;
+  margin-bottom: var(--space-2);
+}
+
+.skeleton-price {
+  width: 45%;
+  height: 36px;
+  margin-bottom: var(--space-4);
+}
+
+.skeleton-badges {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.skeleton-badge {
+  width: 64px;
+  height: 22px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: var(--radius-md);
+}
+
+/* ============================
+   ❗ Error State
+   ============================ */
+.market-container.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-6);
   text-align: center;
-  color: #999;
-  padding: 60px 20px;
-  font-size: 1rem;
+  color: var(--color-danger);
 }
 
-/* 로딩 상태 */
-.market-container .loading {
-  text-align: center;
-  padding: 60px 20px;
-  color: #999;
-  font-size: 1rem;
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
 }
 
-/* 모바일 반응형 */
+/* ============================
+   📱 Responsive
+   ============================ */
 @media (max-width: 768px) {
   .market-container {
-    padding: 30px 15px;
-  }
-
-  .market-container h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    padding: var(--space-5) var(--space-4) var(--space-10);
   }
 
   .price-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4);
   }
 
-  .price-card {
-    padding: 15px;
-  }
-
-  .item-name {
-    font-size: 1rem;
+  .market-section-header {
+    gap: var(--space-3);
   }
 
   .item-price {
-    font-size: 1.2rem;
+    font-size: var(--font-size-2xl);
   }
 }
 
 @media (max-width: 480px) {
   .market-container {
-    padding: 20px 10px;
+    padding: var(--space-4) var(--space-3) var(--space-8);
   }
 
-  .market-container h2 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-
-  .price-grid {
+  .price-grid,
+  .skeleton-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--space-3);
   }
 
-  .price-card {
-    padding: 12px;
-  }
-
-  .item-price {
-    font-size: 1.1rem;
+  .market-section-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .btn-refresh {
     width: 100%;
-    padding: 12px 20px;
+    justify-content: center;
   }
 }

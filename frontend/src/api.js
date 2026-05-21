@@ -11,11 +11,14 @@ const apiClient = axios.create({
 /**
  * 마켓 가격 데이터 조회
  * @param {string} searchTerm - 검색 키워드 (선택사항)
+ * @param {string} region - 지역 (선택사항)
  * @returns {Promise} 마켓 가격 데이터 배열
  */
-export const getMarketPrices = async (searchTerm = null) => {
+export const getMarketPrices = async (searchTerm = null, region = null) => {
   try {
-    const params = searchTerm ? { q: searchTerm } : {};
+    const params = {};
+    if (searchTerm) params.q = searchTerm;
+    if (region) params.region = region;
     const response = await apiClient.get('/items', { params });
     return response.data;
   } catch (error) {
@@ -48,7 +51,7 @@ export const createAiRecipe = async (ingredients) => {
  */
 export const getStorageGuide = async (itemName) => {
   try {
-    const response = await apiClient.get(`/api/storage/${itemName}`);
+    const response = await apiClient.get(`/api/storage/${encodeURIComponent(itemName)}`);
     return response.data;
   } catch (error) {
     console.error('보관 가이드 조회 실패:', error);
