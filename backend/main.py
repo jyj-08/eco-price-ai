@@ -34,7 +34,11 @@ logger.info("FastAPI 애플리케이션 시작")
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",  # Vite 폴백 포트 대비
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

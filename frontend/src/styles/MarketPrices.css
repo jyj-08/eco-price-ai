@@ -180,6 +180,44 @@
   animation: float 3s ease-in-out infinite;
 }
 
+/* === Catalog Mode Badge === */
+.catalog-mode-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: #fff;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* === Catalog Volume Text (기준 용량) === */
+.catalog-volume {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: #6366f1;
+  letter-spacing: -0.2px;
+}
+
+/* === No Data === */
+.no-data {
+  font-size: var(--font-size-sm);
+  color: var(--gray-400);
+  font-style: italic;
+}
+
+/* === Catalog Meta Badges === */
+.meta-badge-code {
+  background: #f0f0ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+
 /* === Card Checkbox Row === */
 .ingredient-select {
   display: flex;
