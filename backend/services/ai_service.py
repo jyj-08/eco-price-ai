@@ -4,6 +4,7 @@ import re
 import logging
 from typing import List, Dict
 from dotenv import load_dotenv
+from google import genai
 
 # .env 파일 로드
 load_dotenv()
@@ -11,21 +12,28 @@ load_dotenv()
 # ===== Logging 설정 =====
 logger = logging.getLogger(__name__)
 
-# Gemini API 설정 시도 (실패해도 Mock 모드로 계속 동작)
+# ===== Gemini API 키 검증 (비어있으면 즉시 서버 중단) =====
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-_genai_client = None
+if not GEMINI_API_KEY or GEMINI_API_KEY == "your-gemini-api-key-here":
+    raise ValueError("GEMINI_API_KEY가 설정되지 않았습니다.")
 
+# ===== SDK 임포트 검증 (실패 시 즉시 서버 중단) =====
 try:
     from google import genai
-    if GEMINI_API_KEY and GEMINI_API_KEY != "your-gemini-api-key-here":
-        _genai_client = genai.Client(api_key=GEMINI_API_KEY)
-        logger.info("Gemini API 클라이언트 초기화 완료 (model=gemini-2.0-flash)")
-    else:
-        logger.warning("GEMINI_API_KEY 미설정 — Mock 모드로 동작합니다.")
-except Exception as e:
-    logger.warning(f"Gemini SDK 초기화 실패 — Mock 모드로 동작합니다: {e}")
+except ImportError:
+    raise ImportError("google-genai 패키지가 설치되지 않았습니다.")
 
-MODEL_NAME = "gemini-2.0-flash"
+# ===== 클라이언트 초기화 =====
+try:
+    _genai_client = genai.Client(api_key=GEMINI_API_KEY)
+    logger.info(
+        f"Gemini API 클라이언트 초기화 완료 (model=gemini-1.5-flash) | "
+        f"KEY 앞 8자: {GEMINI_API_KEY[:8]}..."
+    )
+except Exception as e:
+    raise RuntimeError(f"Gemini 클라이언트 생성 실패: {e}") from e
+
+MODEL_NAME = "gemini-1.5-flash"
 
 
 def _extract_json(text: str) -> str:
@@ -44,15 +52,12 @@ def _extract_json(text: str) -> str:
 def generate_recipe(ingredients: List[str]) -> Dict:
     """
     Gemini를 사용하여 저가형 레시피를 생성합니다.
-    API 호출 실패 시 Mock 데이터를 반환합니다.
+    API 호출 중 발생하는 모든 예외는 그대로 상위로 전파됩니다.
     """
-    logger.info(f"레시피 생성 시작: 재료={ingredients}")
+    logger.info(f"[generate_recipe] 시작 — 재료={ingredients}")
     ingredients_str = ", ".join(ingredients)
 
-    # Gemini API 호출 시도
-    if _genai_client:
-        try:
-            prompt = f"""너는 가성비 요리 전문가야. 입력된 재료를 활용하되, 가장 저렴하게 만들 수 있는 레시피를 제안해줘.
+    prompt = f"""너는 가성비 요리 전문가야. 입력된 재료를 활용하되, 가장 저렴하게 만들 수 있는 레시피를 제안해줘.
 결과는 반드시 다음 JSON 포맷으로 리턴해야 해:
 
 {{
@@ -69,45 +74,46 @@ def generate_recipe(ingredients: List[str]) -> Dict:
 - 비용을 최소화하는 방향으로 레시피 제안
 - JSON만 반환 (추가 텍스트 없음)"""
 
-            response = _genai_client.models.generate_content(
-                model=MODEL_NAME,
-                contents=prompt,
-            )
-            logger.debug(f"Gemini API 응답 수신: 크기={len(response.text)}자")
-            response_text = _extract_json(response.text)
-            recipe_data = json.loads(response_text)
-            logger.info(f"레시피 생성 완료: title={recipe_data.get('title')}")
-            return recipe_data
+    try:
+        logger.info(f"[generate_recipe] Gemini API 호출 시작 (model={MODEL_NAME})")
+        response = _genai_client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt,
+        )
+        logger.info(f"[generate_recipe] Gemini API 응답 수신: {len(response.text)}자")
+        logger.debug(f"[generate_recipe] 원본 응답:\n{response.text}")
+    except Exception as e:
+        # 구체적인 에러 메시지(Quota Exceeded / 403 Forbidden 등)를 그대로 전파
+        logger.error(
+            f"[generate_recipe] Gemini API 호출 실패! "
+            f"에러 타입: {type(e).__name__} | 메시지: {e}",
+            exc_info=True,
+        )
+        raise Exception(f"Gemini API 호출 에러: {e}")
 
-        except Exception as e:
-            logger.warning(f"Gemini API 호출 실패 — Mock 레시피 반환: {e}")
+    try:
+        response_text = _extract_json(response.text)
+        recipe_data = json.loads(response_text)
+    except json.JSONDecodeError as e:
+        logger.error(
+            f"[generate_recipe] JSON 파싱 실패! "
+            f"원본 응답: {response.text!r} | 에러: {e}",
+            exc_info=True,
+        )
+        raise ValueError(f"Gemini 응답을 JSON으로 파싱할 수 없습니다: {e}") from e
 
-    # Fallback: Mock 레시피 데이터 반환
-    logger.info("Mock 레시피 데이터 반환")
-    return {
-        "title": f"{ingredients[0] if ingredients else '재료'} 활용 가성비 요리",
-        "ingredients": ingredients + ["소금", "참기름", "마늘"],
-        "instructions": [
-            "재료를 깨끗이 씻어 준비합니다.",
-            "팬에 기름을 두르고 마늘을 볶습니다.",
-            f"{ingredients_str}를 넣고 중불에서 5분간 볶습니다.",
-            "소금으로 간을 맞추고 참기름을 넣어 완성합니다.",
-        ],
-        "cost_estimate": 5000,
-    }
+    logger.info(f"[generate_recipe] 완료 — title={recipe_data.get('title')}")
+    return recipe_data
 
 
 def generate_storage_guide(item_name: str) -> Dict:
     """
     Gemini를 사용하여 식재료의 보관 가이드를 생성합니다.
-    API 호출 실패 시 Mock 데이터를 반환합니다.
+    API 호출 중 발생하는 모든 예외는 그대로 상위로 전파됩니다.
     """
-    logger.info(f"보관 가이드 생성 시작: item_name={item_name}")
+    logger.info(f"[generate_storage_guide] 시작 — item_name={item_name}")
 
-    # Gemini API 호출 시도
-    if _genai_client:
-        try:
-            prompt = f"""너는 식재료 보관 전문가야. 주어진 식재료의 최적 보관 방법을 제안해줘.
+    prompt = f"""너는 식재료 보관 전문가야. 주어진 식재료의 최적 보관 방법을 제안해줘.
 결과는 반드시 다음 JSON 포맷으로 리턴해야 해:
 
 {{
@@ -124,24 +130,36 @@ def generate_storage_guide(item_name: str) -> Dict:
 - shelf_life_days는 개봉 후 냉장 보관 기준 정수값
 - JSON만 반환 (추가 텍스트 없음)"""
 
-            response = _genai_client.models.generate_content(
-                model=MODEL_NAME,
-                contents=prompt,
-            )
-            logger.debug(f"Gemini API 응답 수신: 크기={len(response.text)}자")
-            response_text = _extract_json(response.text)
-            storage_data = json.loads(response_text)
-            logger.info(f"보관 가이드 생성 완료: item_name={item_name}, shelf_life={storage_data.get('shelf_life_days')}일")
-            return storage_data
+    try:
+        logger.info(f"[generate_storage_guide] Gemini API 호출 시작 (model={MODEL_NAME})")
+        response = _genai_client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt,
+        )
+        logger.info(f"[generate_storage_guide] Gemini API 응답 수신: {len(response.text)}자")
+        logger.debug(f"[generate_storage_guide] 원본 응답:\n{response.text}")
+    except Exception as e:
+        # 구체적인 에러 메시지(Quota Exceeded / 403 Forbidden 등)를 그대로 전파
+        logger.error(
+            f"[generate_storage_guide] Gemini API 호출 실패! "
+            f"에러 타입: {type(e).__name__} | 메시지: {e}",
+            exc_info=True,
+        )
+        raise Exception(f"Gemini API 호출 에러: {e}")
 
-        except Exception as e:
-            logger.warning(f"Gemini API 호출 실패 — Mock 보관 가이드 반환: {e}")
+    try:
+        response_text = _extract_json(response.text)
+        storage_data = json.loads(response_text)
+    except json.JSONDecodeError as e:
+        logger.error(
+            f"[generate_storage_guide] JSON 파싱 실패! "
+            f"원본 응답: {response.text!r} | 에러: {e}",
+            exc_info=True,
+        )
+        raise ValueError(f"Gemini 응답을 JSON으로 파싱할 수 없습니다: {e}") from e
 
-    # Fallback: Mock 보관 가이드 데이터 반환
-    logger.info(f"Mock 보관 가이드 데이터 반환: item_name={item_name}")
-    return {
-        "item_name": item_name,
-        "storage_method": "실온 보관 시 서늘하고 통풍이 잘되는 곳에 두시고, 장기 보관 시 밀폐 용기에 담아 냉장/냉동 보관하세요.",
-        "shelf_life_days": 30,
-        "is_freezable": True,
-    }
+    logger.info(
+        f"[generate_storage_guide] 완료 — item_name={item_name}, "
+        f"shelf_life={storage_data.get('shelf_life_days')}일"
+    )
+    return storage_data
