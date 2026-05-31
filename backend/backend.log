@@ -8723,3 +8723,1130 @@ Traceback (most recent call last):
     raise HTTPException(status_code=500, detail=f"보관 가이드 생성 오류: {str(e)}")
 fastapi.exceptions.HTTPException: 500: 보관 가이드 생성 오류: Gemini API 호출 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
 2026-05-31 12:35:14,021 - main - INFO - [요청 완료] GET /api/storage/해찬들 100% 태양초 우리쌀 고추장(1kg) | 상태코드: 500 | ID: 2026-05-31T12:35:13.874807
+2026-05-31 12:38:15,884 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:40:36,009 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:40:43,492 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:40:45,096 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:41:08,509 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:08.509948
+2026-05-31 12:41:08,528 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:41:08,544 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:41:08,547 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:41:08.509948
+2026-05-31 12:41:08,551 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:08.551117
+2026-05-31 12:41:08,551 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:41:08,561 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:41:08,564 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:41:08.551117
+2026-05-31 12:41:12,769 - main - INFO - [요청 시작] GET /api/storage/서울우유 흰우유(1L) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:12.769429
+2026-05-31 12:41:12,769 - main - INFO - 보관 가이드 조회 요청: item_name=서울우유 흰우유(1L)
+2026-05-31 12:41:12,769 - main - INFO - 새로운 보관 가이드 생성 시작: item_name=서울우유 흰우유(1L)
+2026-05-31 12:41:12,819 - services.ai_service - INFO - [generate_storage_guide] Gemini API 호출 시작 (model=gemini-1.5-flash)
+2026-05-31 12:41:12,819 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:41:13,077 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-05-31 12:41:13,094 - services.ai_service - ERROR - [generate_storage_guide] Gemini API 호출 실패! 에러 타입: ClientError | 메시지: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:13,143 - main - ERROR - 보관 가이드 생성 중 심각한 오류 발생: item_name=서울우유 흰우유(1L), 에러=AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 254, in get_storage_guide
+    storage_data = generate_storage_guide(item_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 163, in generate_storage_guide
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:13,143 - database - ERROR - 데이터베이스 세션 중 오류 발생: 500: 보관 가이드 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 254, in get_storage_guide
+    storage_data = generate_storage_guide(item_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 163, in generate_storage_guide
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 279, in get_storage_guide
+    raise HTTPException(status_code=500, detail=f"보관 가이드 생성 오류: {str(e)}")
+fastapi.exceptions.HTTPException: 500: 보관 가이드 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:13,193 - main - INFO - [요청 완료] GET /api/storage/서울우유 흰우유(1L) | 상태코드: 500 | ID: 2026-05-31T12:41:12.769429
+2026-05-31 12:41:15,323 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:15.323993
+2026-05-31 12:41:15,336 - main - INFO - AI 레시피 생성 요청: 재료=['오뚜기 크림스프(80g)', '서울우유 흰우유(1L)']
+2026-05-31 12:41:15,339 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-1.5-flash)
+2026-05-31 12:41:15,340 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:41:15,470 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-05-31 12:41:15,470 - services.ai_service - ERROR - [generate_recipe] Gemini API 호출 실패! 에러 타입: ClientError | 메시지: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:15,473 - main - ERROR - AI 레시피 생성 중 심각한 오류 발생: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 189, in create_ai_recipe
+    recipe_data = generate_recipe(request.ingredients)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 99, in generate_recipe
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:15,473 - database - ERROR - 데이터베이스 세션 중 오류 발생: 500: 레시피 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 189, in create_ai_recipe
+    recipe_data = generate_recipe(request.ingredients)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 99, in generate_recipe
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 221, in create_ai_recipe
+    raise HTTPException(status_code=500, detail=f"레시피 생성 오류: {str(e)}")
+fastapi.exceptions.HTTPException: 500: 레시피 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:15,484 - main - INFO - [요청 완료] POST /api/ai/recipe | 상태코드: 500 | ID: 2026-05-31T12:41:15.323993
+2026-05-31 12:41:25,112 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:25.112523
+2026-05-31 12:41:25,114 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:41:25,125 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:41:25,128 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:41:25.112523
+2026-05-31 12:41:25,130 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:25.130272
+2026-05-31 12:41:25,132 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:41:25,135 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:41:25,143 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:41:25.130272
+2026-05-31 12:41:27,268 - main - INFO - [요청 시작] GET /api/storage/오뚜기 크림스프(80g) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:27.268188
+2026-05-31 12:41:27,268 - main - INFO - 보관 가이드 조회 요청: item_name=오뚜기 크림스프(80g)
+2026-05-31 12:41:27,268 - main - INFO - 기존 보관 가이드 발견: guide_id=1
+2026-05-31 12:41:27,268 - main - INFO - [요청 완료] GET /api/storage/오뚜기 크림스프(80g) | 상태코드: 200 | ID: 2026-05-31T12:41:27.268188
+2026-05-31 12:41:29,182 - main - INFO - [요청 시작] GET /api/storage/서울우유 흰우유(1L) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:29.182603
+2026-05-31 12:41:29,184 - main - INFO - 보관 가이드 조회 요청: item_name=서울우유 흰우유(1L)
+2026-05-31 12:41:29,186 - main - INFO - 새로운 보관 가이드 생성 시작: item_name=서울우유 흰우유(1L)
+2026-05-31 12:41:29,186 - services.ai_service - INFO - [generate_storage_guide] Gemini API 호출 시작 (model=gemini-1.5-flash)
+2026-05-31 12:41:29,186 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:41:29,409 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-05-31 12:41:29,409 - services.ai_service - ERROR - [generate_storage_guide] Gemini API 호출 실패! 에러 타입: ClientError | 메시지: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:29,409 - main - ERROR - 보관 가이드 생성 중 심각한 오류 발생: item_name=서울우유 흰우유(1L), 에러=AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 254, in get_storage_guide
+    storage_data = generate_storage_guide(item_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 163, in generate_storage_guide
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:29,409 - database - ERROR - 데이터베이스 세션 중 오류 발생: 500: 보관 가이드 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 151, in generate_storage_guide
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 254, in get_storage_guide
+    storage_data = generate_storage_guide(item_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 163, in generate_storage_guide
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 279, in get_storage_guide
+    raise HTTPException(status_code=500, detail=f"보관 가이드 생성 오류: {str(e)}")
+fastapi.exceptions.HTTPException: 500: 보관 가이드 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:29,409 - main - INFO - [요청 완료] GET /api/storage/서울우유 흰우유(1L) | 상태코드: 500 | ID: 2026-05-31T12:41:29.182603
+2026-05-31 12:41:32,415 - main - INFO - [요청 시작] OPTIONS /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:32.415286
+2026-05-31 12:41:32,416 - main - INFO - [요청 완료] OPTIONS /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T12:41:32.415286
+2026-05-31 12:41:32,417 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:41:32.417030
+2026-05-31 12:41:32,419 - main - INFO - AI 레시피 생성 요청: 재료=['오뚜기 크림스프(80g)', '서울우유 흰우유(1L)']
+2026-05-31 12:41:32,419 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-1.5-flash)
+2026-05-31 12:41:32,419 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:41:32,544 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-05-31 12:41:32,544 - services.ai_service - ERROR - [generate_recipe] Gemini API 호출 실패! 에러 타입: ClientError | 메시지: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:32,544 - main - ERROR - AI 레시피 생성 중 심각한 오류 발생: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 189, in create_ai_recipe
+    recipe_data = generate_recipe(request.ingredients)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 99, in generate_recipe
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:32,544 - database - ERROR - 데이터베이스 세션 중 오류 발생: 500: 레시피 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 87, in generate_recipe
+    response = _genai_client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6405, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4841, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 189, in create_ai_recipe
+    recipe_data = generate_recipe(request.ingredients)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\services\ai_service.py", line 99, in generate_recipe
+    raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
+RuntimeError: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 221, in create_ai_recipe
+    raise HTTPException(status_code=500, detail=f"레시피 생성 오류: {str(e)}")
+fastapi.exceptions.HTTPException: 500: 레시피 생성 오류: AI 서버 통신 에러: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-05-31 12:41:32,544 - main - INFO - [요청 완료] POST /api/ai/recipe | 상태코드: 500 | ID: 2026-05-31T12:41:32.417030
+2026-05-31 12:46:07,085 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:46:12,959 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:55:29,719 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 12:59:09,697 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:09.697298
+2026-05-31 12:59:09,701 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:59:09,712 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:59:09,712 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:59:09.697298
+2026-05-31 12:59:09,721 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:09.721156
+2026-05-31 12:59:09,721 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 12:59:09,732 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 12:59:09,736 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T12:59:09.721156
+2026-05-31 12:59:11,315 - main - INFO - [요청 시작] GET /api/storage/오뚜기 크림스프(80g) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:11.315760
+2026-05-31 12:59:11,318 - main - INFO - 보관 가이드 조회 요청: item_name=오뚜기 크림스프(80g)
+2026-05-31 12:59:11,322 - main - INFO - 기존 보관 가이드 발견: guide_id=1
+2026-05-31 12:59:11,324 - main - INFO - [요청 완료] GET /api/storage/오뚜기 크림스프(80g) | 상태코드: 200 | ID: 2026-05-31T12:59:11.315760
+2026-05-31 12:59:13,126 - main - INFO - [요청 시작] GET /api/storage/서울우유 흰우유(1L) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:13.126567
+2026-05-31 12:59:13,127 - main - INFO - 보관 가이드 조회 요청: item_name=서울우유 흰우유(1L)
+2026-05-31 12:59:13,127 - main - INFO - 새로운 보관 가이드 생성 시작: item_name=서울우유 흰우유(1L)
+2026-05-31 12:59:13,127 - services.ai_service - INFO - [generate_storage_guide] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 12:59:13,127 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:59:18,884 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 12:59:18,885 - services.ai_service - INFO - [generate_storage_guide] Gemini API 응답 수신: 366자
+2026-05-31 12:59:18,885 - main - INFO - AI 보관 가이드 생성 완료: 서울우유 흰우유(1L)
+2026-05-31 12:59:18,885 - main - INFO - 보관 가이드 데이터베이스 저장 완료: guide_id=6
+2026-05-31 12:59:18,901 - main - INFO - [요청 완료] GET /api/storage/서울우유 흰우유(1L) | 상태코드: 200 | ID: 2026-05-31T12:59:13.126567
+2026-05-31 12:59:22,361 - main - INFO - [요청 시작] GET /api/storage/오뚜기 크림스프(80g) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:22.361785
+2026-05-31 12:59:22,363 - main - INFO - 보관 가이드 조회 요청: item_name=오뚜기 크림스프(80g)
+2026-05-31 12:59:22,365 - main - INFO - 기존 보관 가이드 발견: guide_id=1
+2026-05-31 12:59:22,368 - main - INFO - [요청 완료] GET /api/storage/오뚜기 크림스프(80g) | 상태코드: 200 | ID: 2026-05-31T12:59:22.361785
+2026-05-31 12:59:25,487 - main - INFO - [요청 시작] OPTIONS /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:25.487478
+2026-05-31 12:59:25,488 - main - INFO - [요청 완료] OPTIONS /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T12:59:25.487478
+2026-05-31 12:59:25,490 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T12:59:25.490482
+2026-05-31 12:59:25,493 - main - INFO - AI 레시피 생성 요청: 재료=['오뚜기 크림스프(80g)', '서울우유 흰우유(1L)']
+2026-05-31 12:59:25,496 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 12:59:25,496 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 12:59:32,636 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 12:59:32,636 - services.ai_service - INFO - [generate_recipe] Gemini API 응답 수신: 429자
+2026-05-31 12:59:32,636 - main - INFO - AI 레시피 생성 완료: 초간단 고소한 우유 크림스프
+2026-05-31 12:59:32,671 - main - INFO - AI 레시피 데이터베이스 저장 완료: recipe_id=8
+2026-05-31 12:59:32,671 - database - ERROR - 데이터베이스 세션 중 오류 발생: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 3, 59, 32, 652149)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 695, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 300, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 3, 59, 32, 652149)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+2026-05-31 12:59:32,671 - main - ERROR - [요청 에러] POST /api/ai/recipe | 에러: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 3, 59, 32, 652149)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe | ID: 2026-05-31T12:59:25.490482
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 61, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 695, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 300, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 오뚜기 크림스프 분말(80g)을 모두 넣습니다.', '찬 우유 400ml와 찬물 400ml를 부은 뒤, 가루가 뭉치지 않도록 거품기나 숟가락으로 잘 풀어줍니다.', '냄비를 중불에 올리고, 바닥이 눌어붙지 않도록 숟가락으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르면 약불로 줄이고, 원하는 걸쭉한 농도가 될 때까지 2~3분간 더 저어주며 끓인 후 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 3, 59, 32, 652149)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+2026-05-31 13:02:52,850 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:02:52.850226
+2026-05-31 13:02:52,850 - main - INFO - AI 레시피 생성 요청: 재료=['오뚜기 크림스프(80g)', '서울우유 흰우유(1L)']
+2026-05-31 13:02:52,850 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 13:02:52,850 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 13:03:00,823 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 13:03:00,823 - services.ai_service - INFO - [generate_recipe] Gemini API 응답 수신: 402자
+2026-05-31 13:03:00,823 - main - INFO - AI 레시피 생성 완료: 초간단 고소한 우유 크림스프
+2026-05-31 13:03:00,836 - main - INFO - AI 레시피 데이터베이스 저장 완료: recipe_id=9
+2026-05-31 13:03:00,839 - database - ERROR - 데이터베이스 세션 중 오류 발생: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 4, 3, 0, 830015)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\database.py", line 53, in get_db
+    yield db
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 695, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 300, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 4, 3, 0, 830015)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+2026-05-31 13:03:00,840 - main - ERROR - [요청 에러] POST /api/ai/recipe | 에러: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 4, 3, 0, 830015)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe | ID: 2026-05-31T13:02:52.850226
+Traceback (most recent call last):
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 61, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 695, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\heee1\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 300, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'dict_type', 'loc': ('response', 'instructions', 'dict[any,any]'), 'msg': 'Input should be a valid dictionary', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'instructions', 'str'), 'msg': 'Input should be a valid string', 'input': ['냄비에 물 300ml와 우유 500ml를 붓고 크림스프 분말 80g을 넣어 가루가 뭉치지 않도록 잘 풀어줍니다.', '냄비를 중간 불에 올리고, 바닥이 눌어붙지 않도록 국자나 주걱으로 계속 저어가며 끓여줍니다.', '스프가 끓어오르기 시작하면 약한 불로 줄인 뒤, 2~3분간 더 저어주며 걸쭉한 농도가 될 때까지 끓여 완성합니다.']}
+  {'type': 'string_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid string', 'input': datetime.datetime(2026, 5, 31, 4, 3, 0, 830015)}
+
+  File "C:\dev\GitHub\eco-price-ai\backend\main.py", line 172, in create_ai_recipe
+    POST /api/ai/recipe
+2026-05-31 13:05:54,190 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 13:05:55,814 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 13:06:09,611 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 13:06:25,206 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:25.206238
+2026-05-31 13:06:25,206 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 13:06:25,222 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 13:06:25,222 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T13:06:25.206238
+2026-05-31 13:06:25,222 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:25.222603
+2026-05-31 13:06:25,230 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 13:06:25,239 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 13:06:25,242 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T13:06:25.222603
+2026-05-31 13:06:26,567 - main - INFO - [요청 시작] GET /api/storage/오뚜기 크림스프(80g) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:26.567178
+2026-05-31 13:06:26,567 - main - INFO - 보관 가이드 조회 요청: item_name=오뚜기 크림스프(80g)
+2026-05-31 13:06:26,582 - main - INFO - 기존 보관 가이드 발견: guide_id=1
+2026-05-31 13:06:26,584 - main - INFO - [요청 완료] GET /api/storage/오뚜기 크림스프(80g) | 상태코드: 200 | ID: 2026-05-31T13:06:26.567178
+2026-05-31 13:06:28,023 - main - INFO - [요청 시작] GET /api/storage/서울우유 흰우유(1L) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:28.023666
+2026-05-31 13:06:28,024 - main - INFO - 보관 가이드 조회 요청: item_name=서울우유 흰우유(1L)
+2026-05-31 13:06:28,028 - main - INFO - 기존 보관 가이드 발견: guide_id=6
+2026-05-31 13:06:28,029 - main - INFO - [요청 완료] GET /api/storage/서울우유 흰우유(1L) | 상태코드: 200 | ID: 2026-05-31T13:06:28.023666
+2026-05-31 13:06:29,771 - main - INFO - [요청 시작] GET /api/storage/처음처럼(360ml) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:29.771846
+2026-05-31 13:06:29,787 - main - INFO - 보관 가이드 조회 요청: item_name=처음처럼(360ml)
+2026-05-31 13:06:29,787 - main - INFO - 새로운 보관 가이드 생성 시작: item_name=처음처럼(360ml)
+2026-05-31 13:06:29,787 - services.ai_service - INFO - [generate_storage_guide] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 13:06:29,787 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 13:06:36,380 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 13:06:36,383 - services.ai_service - INFO - [generate_storage_guide] Gemini API 응답 수신: 250자
+2026-05-31 13:06:36,383 - main - INFO - AI 보관 가이드 생성 완료: 처음처럼(360ml)
+2026-05-31 13:06:36,396 - main - INFO - 보관 가이드 데이터베이스 저장 완료: guide_id=7
+2026-05-31 13:06:36,396 - main - INFO - [요청 완료] GET /api/storage/처음처럼(360ml) | 상태코드: 200 | ID: 2026-05-31T13:06:29.771846
+2026-05-31 13:06:45,779 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T13:06:45.779841
+2026-05-31 13:06:45,779 - main - INFO - AI 레시피 생성 요청: 재료=['오뚜기 크림스프(80g)', '서울우유 흰우유(1L)']
+2026-05-31 13:06:45,779 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 13:06:45,779 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 13:06:53,038 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 13:06:53,038 - services.ai_service - INFO - [generate_recipe] Gemini API 응답 수신: 460자
+2026-05-31 13:06:53,054 - main - INFO - AI 레시피 생성 완료: 부드럽고 고소한 초간단 우유 크림스프
+2026-05-31 13:06:53,064 - main - INFO - AI 레시피 데이터베이스 저장 완료: recipe_id=10
+2026-05-31 13:06:53,064 - main - INFO - [요청 완료] POST /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T13:06:45.779841
+2026-05-31 14:28:41,802 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:28:47,057 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:29:30,693 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:29:47,775 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:29:47.775054
+2026-05-31 14:29:47,775 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 14:29:47,796 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 14:29:47,799 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T14:29:47.775054
+2026-05-31 14:29:47,802 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:29:47.802105
+2026-05-31 14:29:47,803 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 14:29:47,812 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 500개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 14:29:47,812 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T14:29:47.802105
+2026-05-31 14:29:50,498 - main - INFO - [요청 시작] GET /api/storage/서울우유 흰우유(1L) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:29:50.498977
+2026-05-31 14:29:50,498 - main - INFO - 보관 가이드 조회 요청: item_name=서울우유 흰우유(1L)
+2026-05-31 14:29:50,512 - main - INFO - 기존 보관 가이드 발견: guide_id=6
+2026-05-31 14:29:50,513 - main - INFO - [요청 완료] GET /api/storage/서울우유 흰우유(1L) | 상태코드: 200 | ID: 2026-05-31T14:29:50.498977
+2026-05-31 14:29:56,550 - main - INFO - [요청 시작] GET /api/storage/고등어(생물, 300~500g) | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:29:56.550061
+2026-05-31 14:29:56,550 - main - INFO - 보관 가이드 조회 요청: item_name=고등어(생물, 300~500g)
+2026-05-31 14:29:56,568 - main - INFO - 기존 보관 가이드 발견: guide_id=2
+2026-05-31 14:29:56,570 - main - INFO - [요청 완료] GET /api/storage/고등어(생물, 300~500g) | 상태코드: 200 | ID: 2026-05-31T14:29:56.550061
+2026-05-31 14:34:20,377 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:35:09,003 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:35:26,155 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:35:27,838 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:53:35,512 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:53:35.512706
+2026-05-31 14:53:35,512 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 14:53:35,512 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 100개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 14:53:35,512 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T14:53:35.512706
+2026-05-31 14:53:35,530 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:53:35.530812
+2026-05-31 14:53:35,533 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 14:53:35,537 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 100개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 14:53:35,537 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T14:53:35.530812
+2026-05-31 14:53:47,246 - main - INFO - [요청 시작] GET /api/storage/배 | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:53:47.246795
+2026-05-31 14:53:47,251 - main - INFO - 보관 가이드 조회 요청: item_name=배
+2026-05-31 14:53:47,255 - main - INFO - 새로운 보관 가이드 생성 시작: item_name=배
+2026-05-31 14:53:47,259 - services.ai_service - INFO - [generate_storage_guide] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 14:53:47,259 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 14:53:52,680 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 14:53:52,682 - services.ai_service - INFO - [generate_storage_guide] Gemini API 응답 수신: 275자
+2026-05-31 14:53:52,724 - main - INFO - AI 보관 가이드 생성 완료: 배
+2026-05-31 14:53:52,741 - main - INFO - 보관 가이드 데이터베이스 저장 완료: guide_id=8
+2026-05-31 14:53:52,744 - main - INFO - [요청 완료] GET /api/storage/배 | 상태코드: 200 | ID: 2026-05-31T14:53:47.246795
+2026-05-31 14:54:06,095 - main - INFO - [요청 시작] OPTIONS /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:54:06.095472
+2026-05-31 14:54:06,095 - main - INFO - [요청 완료] OPTIONS /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T14:54:06.095472
+2026-05-31 14:54:06,112 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T14:54:06.112436
+2026-05-31 14:54:06,114 - main - INFO - AI 레시피 생성 요청: 재료=['무', '당근', '배추']
+2026-05-31 14:54:06,119 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 14:54:06,119 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 14:54:14,800 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 14:54:14,800 - services.ai_service - INFO - [generate_recipe] Gemini API 응답 수신: 382자
+2026-05-31 14:54:14,813 - main - INFO - AI 레시피 생성 완료: 초간단 아삭 채소전
+2026-05-31 14:54:14,813 - main - INFO - AI 레시피 데이터베이스 저장 완료: recipe_id=11
+2026-05-31 14:54:14,813 - main - INFO - [요청 완료] POST /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T14:54:06.112436
+2026-05-31 14:56:38,325 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:56:44,499 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 14:59:24,797 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:00:15,327 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:00:37,433 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:00:38,948 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:01:02,016 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:01:02.016246
+2026-05-31 15:01:02,019 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 15:01:02,026 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 100개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 15:01:02,028 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:01:02.016246
+2026-05-31 15:01:02,032 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:01:02.032070
+2026-05-31 15:01:02,032 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 15:01:02,032 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 100개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 15:01:02,042 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:01:02.032070
+2026-05-31 15:01:16,972 - main - INFO - [요청 시작] POST /api/ai/recipe | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:01:16.972718
+2026-05-31 15:01:16,983 - main - INFO - AI 레시피 생성 요청: 재료=['수박', '오이', '배']
+2026-05-31 15:01:16,994 - services.ai_service - INFO - [generate_recipe] Gemini API 호출 시작 (model=gemini-3.5-flash)
+2026-05-31 15:01:16,994 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-05-31 15:01:24,934 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:01:24.934637
+2026-05-31 15:01:24,934 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 15:01:24,941 - main - INFO - 마켓 가격 조회 완료: 50개 항목 반환 (DB 100개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 15:01:24,946 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:01:24.934637
+2026-05-31 15:01:25,999 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-05-31 15:01:26,003 - services.ai_service - INFO - [generate_recipe] Gemini API 응답 수신: 373자
+2026-05-31 15:01:26,005 - main - INFO - AI 레시피 생성 완료: 수박 오이 배 아삭 샐러드
+2026-05-31 15:01:26,020 - main - INFO - AI 레시피 데이터베이스 저장 완료: recipe_id=12
+2026-05-31 15:01:26,022 - main - INFO - [요청 완료] POST /api/ai/recipe | 상태코드: 200 | ID: 2026-05-31T15:01:16.972718
+2026-05-31 15:03:31,032 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:03:31,918 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:04:15,254 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:04:45,428 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:04:46,879 - main - INFO - FastAPI 애플리케이션 시작
+2026-05-31 15:05:03,698 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:05:03.698517
+2026-05-31 15:05:03,702 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 15:05:03,708 - main - INFO - 마켓 가격 조회 완료: 28개 항목 반환 (DB 28개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 15:05:03,710 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:05:03.698517
+2026-05-31 15:05:03,710 - main - INFO - [요청 시작] GET /items | 클라이언트: 127.0.0.1 | ID: 2026-05-31T15:05:03.710328
+2026-05-31 15:05:03,710 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
+2026-05-31 15:05:03,717 - main - INFO - 마켓 가격 조회 완료: 28개 항목 반환 (DB 28개 중 비식품 제외, 최대 50개 제한)
+2026-05-31 15:05:03,717 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:05:03.710328

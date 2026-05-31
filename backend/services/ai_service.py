@@ -33,7 +33,7 @@ try:
 except Exception as e:
     raise RuntimeError(f"Gemini 클라이언트 생성 실패: {e}") from e
 
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "gemini-3.5-flash"
 
 
 def _extract_json(text: str) -> str:
@@ -54,6 +54,13 @@ def generate_recipe(ingredients: List[str]) -> Dict:
     Gemini를 사용하여 저가형 레시피를 생성합니다.
     API 호출 중 발생하는 모든 예외는 그대로 상위로 전파됩니다.
     """
+    # ===== [1] 강력한 클라이언트 검증 =====
+    if not _genai_client:
+        raise ValueError(
+            "Gemini API 키가 설정되지 않았거나 클라이언트가 초기화되지 않았습니다. "
+            ".env 파일을 확인하세요."
+        )
+
     logger.info(f"[generate_recipe] 시작 — 재료={ingredients}")
     ingredients_str = ", ".join(ingredients)
 
@@ -74,6 +81,7 @@ def generate_recipe(ingredients: List[str]) -> Dict:
 - 비용을 최소화하는 방향으로 레시피 제안
 - JSON만 반환 (추가 텍스트 없음)"""
 
+    # ===== [3] 강제 에러 전파: API 호출 실패 시 RuntimeError로 래핑해서 전파 =====
     try:
         logger.info(f"[generate_recipe] Gemini API 호출 시작 (model={MODEL_NAME})")
         response = _genai_client.models.generate_content(
@@ -83,14 +91,14 @@ def generate_recipe(ingredients: List[str]) -> Dict:
         logger.info(f"[generate_recipe] Gemini API 응답 수신: {len(response.text)}자")
         logger.debug(f"[generate_recipe] 원본 응답:\n{response.text}")
     except Exception as e:
-        # 구체적인 에러 메시지(Quota Exceeded / 403 Forbidden 등)를 그대로 전파
         logger.error(
             f"[generate_recipe] Gemini API 호출 실패! "
             f"에러 타입: {type(e).__name__} | 메시지: {e}",
             exc_info=True,
         )
-        raise Exception(f"Gemini API 호출 에러: {e}")
+        raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
 
+    # ===== [2] JSON 파싱 방어 코드: AI 원본 응답을 에러 메시지에 포함 =====
     try:
         response_text = _extract_json(response.text)
         recipe_data = json.loads(response_text)
@@ -100,7 +108,7 @@ def generate_recipe(ingredients: List[str]) -> Dict:
             f"원본 응답: {response.text!r} | 에러: {e}",
             exc_info=True,
         )
-        raise ValueError(f"Gemini 응답을 JSON으로 파싱할 수 없습니다: {e}") from e
+        raise ValueError(f"AI JSON 파싱 실패: {response_text}") from e
 
     logger.info(f"[generate_recipe] 완료 — title={recipe_data.get('title')}")
     return recipe_data
@@ -111,6 +119,13 @@ def generate_storage_guide(item_name: str) -> Dict:
     Gemini를 사용하여 식재료의 보관 가이드를 생성합니다.
     API 호출 중 발생하는 모든 예외는 그대로 상위로 전파됩니다.
     """
+    # ===== [1] 강력한 클라이언트 검증 =====
+    if not _genai_client:
+        raise ValueError(
+            "Gemini API 키가 설정되지 않았거나 클라이언트가 초기화되지 않았습니다. "
+            ".env 파일을 확인하세요."
+        )
+
     logger.info(f"[generate_storage_guide] 시작 — item_name={item_name}")
 
     prompt = f"""너는 식재료 보관 전문가야. 주어진 식재료의 최적 보관 방법을 제안해줘.
@@ -130,6 +145,7 @@ def generate_storage_guide(item_name: str) -> Dict:
 - shelf_life_days는 개봉 후 냉장 보관 기준 정수값
 - JSON만 반환 (추가 텍스트 없음)"""
 
+    # ===== [3] 강제 에러 전파: API 호출 실패 시 RuntimeError로 래핑해서 전파 =====
     try:
         logger.info(f"[generate_storage_guide] Gemini API 호출 시작 (model={MODEL_NAME})")
         response = _genai_client.models.generate_content(
@@ -139,14 +155,14 @@ def generate_storage_guide(item_name: str) -> Dict:
         logger.info(f"[generate_storage_guide] Gemini API 응답 수신: {len(response.text)}자")
         logger.debug(f"[generate_storage_guide] 원본 응답:\n{response.text}")
     except Exception as e:
-        # 구체적인 에러 메시지(Quota Exceeded / 403 Forbidden 등)를 그대로 전파
         logger.error(
             f"[generate_storage_guide] Gemini API 호출 실패! "
             f"에러 타입: {type(e).__name__} | 메시지: {e}",
             exc_info=True,
         )
-        raise Exception(f"Gemini API 호출 에러: {e}")
+        raise RuntimeError(f"AI 서버 통신 에러: {str(e)}") from e
 
+    # ===== [2] JSON 파싱 방어 코드: AI 원본 응답을 에러 메시지에 포함 =====
     try:
         response_text = _extract_json(response.text)
         storage_data = json.loads(response_text)
@@ -156,7 +172,7 @@ def generate_storage_guide(item_name: str) -> Dict:
             f"원본 응답: {response.text!r} | 에러: {e}",
             exc_info=True,
         )
-        raise ValueError(f"Gemini 응답을 JSON으로 파싱할 수 없습니다: {e}") from e
+        raise ValueError(f"AI JSON 파싱 실패: {response_text}") from e
 
     logger.info(
         f"[generate_storage_guide] 완료 — item_name={item_name}, "

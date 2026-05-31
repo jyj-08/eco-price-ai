@@ -1,0 +1,32 @@
+[
+  {
+    "item_name": "무",
+    "price": 1886,
+    "unit": "기본단위",
+    "market_name": "전국평균"
+  },
+  {
+    "item_name": "당근",
+    "price": 3065,
+    "unit": "기본단위",
+    "market_name": "전국평균"
+  },
+  {
+    "item_name": "딸기",
+    "price": 1472,
+    "unit": "기본단위",
+    "market_name": "전국평균"
+  },
+  {
+    "item_name": "배추",
+    "price": 2574,
+    "unit": "기본단위",
+    "market_name": "전국평균"
+  },
+  {
+    "item_name": "상추",
+    "price": 1013,
+    "unit": "기본단위",
+    "market_name": "전국평균"
+  }
+]

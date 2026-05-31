@@ -84,9 +84,9 @@ class RecipeResponse(BaseModel):
     recipe_id: int
     title: str
     main_ingredients: List[str]
-    instructions: dict | str
+    instructions: List[str]
     estimated_cost: int
-    created_at: str
+    created_at: datetime
 
     class Config:
         from_attributes = True
