@@ -9850,3 +9850,5 @@ fastapi.exceptions.ResponseValidationError: 3 validation errors:
 2026-05-31 15:05:03,710 - main - INFO - 마켓 가격 조회 요청: 검색어='None'
 2026-05-31 15:05:03,717 - main - INFO - 마켓 가격 조회 완료: 28개 항목 반환 (DB 28개 중 비식품 제외, 최대 50개 제한)
 2026-05-31 15:05:03,717 - main - INFO - [요청 완료] GET /items | 상태코드: 200 | ID: 2026-05-31T15:05:03.710328
+2026-06-05 17:01:23,205 - main - INFO - FastAPI 애플리케이션 시작
+2026-06-05 17:01:25,788 - main - INFO - FastAPI 애플리케이션 시작
